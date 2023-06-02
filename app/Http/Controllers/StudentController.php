@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class StudentController extends Controller
 {
@@ -38,6 +40,9 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         Student::create($request->all());
+
+        Alert::success('Success', 'Student has been added.');
+
         return redirect()->route('index')->with('success', 'Student has been added.');
     }
 
@@ -73,6 +78,8 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $student->update($request->all());
+
+        Alert::success('Success', 'Student has been updated.');
         return redirect()->route('index')->with('success', 'Student has been updated.');
     }
 
@@ -85,6 +92,7 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
+        Alert::success('Success', 'Student has been removed.');
         return redirect()->route('index')->with('success', 'Student has been removed.');
     }
 }
